@@ -42,7 +42,7 @@ export default function Countdown() {
         className="max-w-5xl mx-auto text-center"
       >
         <h2 className="font-elegant text-4xl md:text-5xl text-foreground mb-12" style={{ fontWeight: 300 }}>
-          Faltan
+          Cuenta Regresiva
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">

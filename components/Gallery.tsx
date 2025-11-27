@@ -1,17 +1,20 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
-// Placeholder de imágenes - agregar imágenes reales en /public/images/gallery/
+// Imágenes de la galería
 const photos = [
-  { id: 1, src: '/images/gallery/1.jpg', alt: 'Foto 1', height: 'h-64' },
-  { id: 2, src: '/images/gallery/2.jpg', alt: 'Foto 2', height: 'h-80' },
-  { id: 3, src: '/images/gallery/3.jpg', alt: 'Foto 3', height: 'h-72' },
-  { id: 4, src: '/images/gallery/4.jpg', alt: 'Foto 4', height: 'h-64' },
-  { id: 5, src: '/images/gallery/5.jpg', alt: 'Foto 5', height: 'h-80' },
-  { id: 6, src: '/images/gallery/6.jpg', alt: 'Foto 6', height: 'h-72' },
-  { id: 7, src: '/images/gallery/7.jpg', alt: 'Foto 7', height: 'h-64' },
-  { id: 8, src: '/images/gallery/8.jpg', alt: 'Foto 8', height: 'h-80' },
+  { id: 1, src: '/images/gallery/2.jpg', alt: 'Foto 2', height: 'h-80' },
+  { id: 2, src: '/images/gallery/5.jpg', alt: 'Foto 5', height: 'h-64' },
+  { id: 3, src: '/images/gallery/10.jpg', alt: 'Foto 10', height: 'h-72' },
+  { id: 4, src: '/images/gallery/13.jpg', alt: 'Foto 13', height: 'h-96' },
+  { id: 5, src: '/images/gallery/14.jpg', alt: 'Foto 14', height: 'h-64' },
+  { id: 6, src: '/images/gallery/17.jpg', alt: 'Foto 17', height: 'h-80' },
+  { id: 7, src: '/images/gallery/20.jpg', alt: 'Foto 20', height: 'h-72' },
+  { id: 8, src: '/images/gallery/24.jpg', alt: 'Foto 24', height: 'h-64' },
+  { id: 9, src: '/images/gallery/25.jpg', alt: 'Foto 25', height: 'h-80' },
+  { id: 10, src: '/images/gallery/28.jpg', alt: 'Foto 28', height: 'h-72' },
 ]
 
 export default function Gallery() {
@@ -43,17 +46,14 @@ export default function Gallery() {
               transition={{ delay: index * 0.1 }}
               className="break-inside-avoid"
             >
-              <div className={`${photo.height} bg-accent-blush/20 border border-subtle overflow-hidden hover:border-accent-wine/40 transition-all duration-300`}>
-                {/* Placeholder - descomentar cuando tengas imágenes reales */}
-                {/* <Image
+              <div className={`relative ${photo.height} bg-accent-blush/20 border border-subtle overflow-hidden hover:border-accent-wine/40 transition-all duration-300`}>
+                <Image
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  className="object-cover"
-                /> */}
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground font-light text-sm">
-                  Foto {photo.id}
-                </div>
+                  className="object-cover hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
             </motion.div>
           ))}

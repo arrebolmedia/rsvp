@@ -30,7 +30,6 @@ export default function GiftRegistry() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <FaGift className="text-6xl text-accent-wine mx-auto mb-8" />
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6" style={{ fontWeight: 300 }}>
             Mesa de Regalos
           </h2>

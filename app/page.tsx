@@ -6,6 +6,7 @@ import WelcomeMessage from '@/components/WelcomeMessage'
 import Countdown from '@/components/Countdown'
 import Itinerary from '@/components/Itinerary'
 import Gallery from '@/components/Gallery'
+import Accommodation from '@/components/Accommodation'
 import DressCode from '@/components/DressCode'
 import GiftRegistry from '@/components/GiftRegistry'
 import RSVPButton from '@/components/RSVPButton'
@@ -23,6 +24,7 @@ export default function Home() {
       <Countdown />
       <Itinerary />
       <Gallery />
+      <Accommodation />
       <DressCode />
       <GiftRegistry />
       <RSVPButton />
@@ -30,7 +32,7 @@ export default function Home() {
       <RSVPModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       
       <footer className="bg-primary-900 text-white py-8 text-center">
-        <p className="text-sm">© 2025 - Creado con amor para nuestra boda</p>
+        <p className="text-sm">© 2025 | Arrebol Weddings</p>
       </footer>
     </main>
   )

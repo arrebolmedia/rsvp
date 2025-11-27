@@ -12,18 +12,23 @@ interface HeroSliderProps {
 const slides = [
   {
     id: 1,
-    image: '/images/slide1.jpg',
+    image: '/images/hero/5.jpg',
     alt: 'Pareja de novios',
   },
   {
     id: 2,
-    image: '/images/slide2.jpg',
+    image: '/images/hero/10.jpg',
     alt: 'Momento romántico',
   },
   {
     id: 3,
-    image: '/images/slide3.jpg',
+    image: '/images/hero/24.jpg',
     alt: 'Celebración',
+  },
+  {
+    id: 4,
+    image: '/images/hero/28.jpg',
+    alt: 'Juntos',
   },
 ]
 
@@ -40,27 +45,23 @@ export default function HeroSlider({ onOpenRSVP }: HeroSliderProps) {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         <motion.div
           key={currentSlide}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
           <div className="relative h-full w-full bg-gradient-to-b from-black/30 to-black/50">
-            {/* Placeholder para imagen - agregar imágenes reales en /public/images/ */}
-            <div className="absolute inset-0 bg-primary-200">
-              {/* Descomentar cuando tengas imágenes reales */}
-              {/* <Image
-                src={slides[currentSlide].image}
-                alt={slides[currentSlide].alt}
-                fill
-                className="object-cover"
-                priority
-              /> */}
-            </div>
+            <Image
+              src={slides[currentSlide].image}
+              alt={slides[currentSlide].alt}
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
         </motion.div>
       </AnimatePresence>
