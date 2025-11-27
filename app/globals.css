@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&family=Bodoni+Moda:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+
+:root {
+  --background: #FAF8F5;
+  --foreground: #2B2B2B;
+  --accent-terracotta: #C67B5C;
+  --accent-blush: #E8C4B8;
+  --accent-wine: #8B5A6F;
+  --border-subtle: #E8E3DD;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.font-elegant {
+  font-family: 'benton-modern-display', serif;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'benton-modern-display', serif;
+  font-weight: 300;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

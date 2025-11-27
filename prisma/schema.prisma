@@ -1,0 +1,53 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Guest {
+  id                    String   @id @default(cuid())
+  firstName             String
+  lastName              String
+  email                 String?
+  phone                 String?
+  maxCompanions         Int      @default(0) // Número máximo de acompañantes permitidos
+  rsvp                  RSVP?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([firstName, lastName])
+}
+
+model RSVP {
+  id                String       @id @default(cuid())
+  guestId           String       @unique
+  guest             Guest        @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  status            RSVPStatus   @default(PENDING)
+  numberOfCompanions Int         @default(0) // Número de acompañantes confirmados
+  message           String?      // Mensaje personalizado del invitado
+  confirmedAt       DateTime?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  @@index([status])
+}
+
+enum RSVPStatus {
+  PENDING
+  CONFIRMED
+  DECLINED
+}
