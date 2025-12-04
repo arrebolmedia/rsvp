@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 
-const hotels = [
+const defaultHotels = [
   {
     name: 'HOSTERÍA LAS QUINTAS',
     code: '27BAYR',
@@ -47,7 +47,9 @@ const hotels = [
   },
 ]
 
-export default function Accommodation() {
+export default function Accommodation({ settings }: { settings?: any }) {
+  const hotels = settings?.hotels || defaultHotels
+
   return (
     <section className="py-24 px-4 bg-background">
       <div className="max-w-6xl mx-auto">
@@ -58,16 +60,16 @@ export default function Accommodation() {
           className="text-center mb-16"
         >
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6" style={{ fontWeight: 300 }}>
-            Hospedaje
+            {settings?.title || 'Hospedaje'}
           </h2>
           <div className="w-24 h-px bg-accent-wine mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto font-light text-base md:text-lg leading-relaxed">
-            Para nosotros es muy importante tu seguridad, estos son los lugares que recomendamos para tu instalación.
+            {settings?.description || 'Para nosotros es muy importante tu seguridad, estos son los lugares que recomendamos para tu instalación.'}
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-          {hotels.map((hotel, index) => (
+          {hotels.map((hotel: any, index: number) => (
             <motion.div
               key={index}
               initial={{ opacity: 0 }}

@@ -7,9 +7,10 @@ import { getShortWeddingDate } from '@/lib/weddingDate'
 
 interface HeroSliderProps {
   onOpenRSVP: () => void
+  settings?: any
 }
 
-const slides = [
+const defaultSlides = [
   {
     id: 1,
     image: '/images/hero/5.jpg',
@@ -32,8 +33,9 @@ const slides = [
   },
 ]
 
-export default function HeroSlider({ onOpenRSVP }: HeroSliderProps) {
+export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const slides = settings?.slides || defaultSlides
 
   useEffect(() => {
     const timer = setInterval(() => {

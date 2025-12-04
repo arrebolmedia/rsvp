@@ -46,6 +46,14 @@ model RSVP {
   @@index([status])
 }
 
+model SiteSettings {
+  id        String   @id @default(cuid())
+  section   String   @unique // e.g., "hero", "accommodation"
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum RSVPStatus {
   PENDING
   CONFIRMED

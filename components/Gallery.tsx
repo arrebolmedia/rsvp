@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 // Imágenes de la galería
-const photos = [
+const defaultPhotos = [
   { id: 1, src: '/images/gallery/2.jpg', alt: 'Foto 2', height: 'h-80' },
   { id: 2, src: '/images/gallery/5.jpg', alt: 'Foto 5', height: 'h-64' },
   { id: 3, src: '/images/gallery/10.jpg', alt: 'Foto 10', height: 'h-72' },
@@ -17,7 +17,9 @@ const photos = [
   { id: 10, src: '/images/gallery/28.jpg', alt: 'Foto 28', height: 'h-72' },
 ]
 
-export default function Gallery() {
+export default function Gallery({ settings }: { settings?: any }) {
+  const photos = settings?.photos || defaultPhotos
+
   return (
     <section className="py-24 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -28,7 +30,7 @@ export default function Gallery() {
           className="text-center mb-16"
         >
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6" style={{ fontWeight: 300 }}>
-            Nuestra Historia
+            {settings?.title || 'Nuestra Historia'}
           </h2>
           <div className="w-24 h-px bg-accent-wine mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto font-light text-base md:text-lg leading-relaxed">
@@ -37,7 +39,7 @@ export default function Gallery() {
         </motion.div>
 
         <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-          {photos.map((photo, index) => (
+          {photos.map((photo: any, index: number) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0 }}

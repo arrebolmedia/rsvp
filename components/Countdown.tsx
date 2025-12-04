@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { WEDDING_DATE } from '@/lib/weddingDate'
 
-export default function Countdown() {
+export default function Countdown({ settings }: { settings?: any }) {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -14,8 +14,9 @@ export default function Countdown() {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
+      const targetDate = settings?.targetDate ? new Date(settings.targetDate) : WEDDING_DATE
       const now = new Date().getTime()
-      const difference = WEDDING_DATE.getTime() - now
+      const difference = targetDate.getTime() - now
 
       if (difference > 0) {
         setTimeLeft({
@@ -42,7 +43,7 @@ export default function Countdown() {
         className="max-w-5xl mx-auto text-center"
       >
         <h2 className="font-elegant text-4xl md:text-5xl text-foreground mb-12" style={{ fontWeight: 300 }}>
-          Cuenta Regresiva
+          {settings?.title || 'Cuenta Regresiva'}
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">

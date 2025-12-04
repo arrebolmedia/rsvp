@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import { 
   FaUsers, FaCheck, FaClock, FaTimes, 
@@ -267,13 +268,19 @@ export default function DashboardPage() {
           <h1 className="font-elegant text-3xl text-primary-800">
             Panel de Administración
           </h1>
-          <button
-            onClick={() => signOut({ callbackUrl: '/admin/login' })}
-            className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <FaSignOutAlt />
-            Cerrar Sesión
-          </button>
+          <div className="flex items-center gap-4">
+            <Link href="/admin/content" className="flex items-center gap-2 px-4 py-2 bg-primary-800 text-white rounded hover:bg-primary-900 transition-colors">
+              <FaEdit />
+              Editar Contenido
+            </Link>
+            <button
+              onClick={() => signOut({ callbackUrl: '/admin/login' })}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            >
+              <FaSignOutAlt />
+              Cerrar Sesión
+            </button>
+          </div>
         </div>
       </header>
 
