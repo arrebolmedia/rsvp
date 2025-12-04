@@ -97,7 +97,7 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
 
       {/* Indicadores */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-        {slides.map((_, index) => (
+        {slides.map((_: any, index: number) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
