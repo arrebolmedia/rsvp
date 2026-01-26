@@ -1,0 +1,11 @@
+firstName,lastName,email,phone,maxCompanions
+Juan,Pérez,juan.perez@example.com,5551234567,2
+María,García,maria.garcia@example.com,5559876543,1
+Carlos,López,carlos.lopez@example.com,5555555555,3
+Ana,Martínez,ana.martinez@example.com,5552345678,0
+Pedro,Rodríguez,pedro.rodriguez@example.com,5558765432,2
+Laura,Fernández,laura.fernandez@example.com,5553456789,1
+Diego,González,diego.gonzalez@example.com,5557654321,4
+Sofia,Ramírez,,5554567890,1
+Miguel,Torres,miguel.torres@example.com,,2
+Carmen,Flores,carmen.flores@example.com,5556543210,0

@@ -14,9 +14,14 @@ export default function Countdown({ settings }: { settings?: any }) {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
+      // Usar la fecha configurada o la fecha por defecto
       const targetDate = settings?.targetDate ? new Date(settings.targetDate) : WEDDING_DATE
-      const now = new Date().getTime()
-      const difference = targetDate.getTime() - now
+      
+      // Obtener la hora actual
+      const now = new Date()
+      
+      // Calcular diferencia en milisegundos
+      const difference = targetDate.getTime() - now.getTime()
 
       if (difference > 0) {
         setTimeLeft({
@@ -25,6 +30,9 @@ export default function Countdown({ settings }: { settings?: any }) {
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
         })
+      } else {
+        // Si la fecha ya pasó, poner todo en 0
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
       }
     }
 
@@ -32,7 +40,7 @@ export default function Countdown({ settings }: { settings?: any }) {
     const timer = setInterval(calculateTimeLeft, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [settings?.targetDate])
 
   return (
     <section className="py-24 px-4 bg-background">

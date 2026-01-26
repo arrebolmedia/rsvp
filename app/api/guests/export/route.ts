@@ -26,22 +26,25 @@ export async function GET() {
     })
 
     const csvData = guests.map((guest: any) => ({
-      firstName: guest.firstName,
-      lastName: guest.lastName,
+      nombre: guest.firstName,
+      apellido: guest.lastName,
       email: guest.email || '',
-      phone: guest.phone || '',
-      maxCompanions: guest.maxCompanions,
-      status: guest.rsvp?.status || 'PENDING',
-      numberOfCompanions: guest.rsvp?.numberOfCompanions || 0,
-      message: guest.rsvp?.message || '',
-      confirmedAt: guest.rsvp?.confirmedAt?.toISOString() || '',
+      teléfono: guest.phone || '',
+      maxAcompañantes: guest.maxCompanions,
+      estado: guest.rsvp?.status || 'PENDING',
+      numAcompañantes: guest.rsvp?.numberOfCompanions || 0,
+      mensaje: guest.rsvp?.message || '',
+      confirmadoEn: guest.rsvp?.confirmedAt?.toISOString() || '',
     }))
 
     const csv = Papa.unparse(csvData)
+    
+    // Agregar BOM UTF-8 para que Excel reconozca correctamente los caracteres especiales
+    const csvWithBOM = '\uFEFF' + csv
 
-    return new NextResponse(csv, {
+    return new NextResponse(csvWithBOM, {
       headers: {
-        'Content-Type': 'text/csv',
+        'Content-Type': 'text/csv; charset=utf-8',
         'Content-Disposition': `attachment; filename="guests-${new Date().toISOString()}.csv"`,
       },
     })

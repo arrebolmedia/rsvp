@@ -31,6 +31,14 @@ Sistema completo de invitación digital para bodas con confirmación de asistenc
   - Búsqueda por nombre
   - Edición manual de invitados
   - Eliminación de registros
+- � **Editor de Contenido**:
+  - Edición dinámica de todas las secciones del sitio
+  - Validación de formularios con Zod
+  - Notificaciones toast con feedback visual
+  - Indicador de cambios sin guardar
+  - Botón de vista previa
+  - Carga de configuración por defecto
+  - Prevención de pérdida de datos
 - 📥 **Importación CSV**: Carga masiva de invitados
 - 📤 **Exportación CSV**: Descarga de lista completa con estados
 
@@ -44,6 +52,8 @@ Sistema completo de invitación digital para bodas con confirmación de asistenc
 - **Animaciones**: Framer Motion
 - **Iconos**: React Icons
 - **CSV**: PapaParse
+- **Validación**: Zod
+- **Notificaciones**: Sonner
 
 ## 📁 Estructura del Proyecto
 
@@ -125,8 +135,14 @@ npx prisma generate
 # Crear base de datos y tablas
 npx prisma db push
 
-# (Opcional) Cargar datos de ejemplo
-npx tsx prisma/seed.ts
+# Cargar datos de ejemplo (invitados)
+npm run seed
+
+# Cargar configuración de contenido del sitio
+npm run seed:settings
+
+# O cargar todo a la vez
+npm run seed:all
 ```
 
 ### 4. Iniciar Servidor de Desarrollo

@@ -24,10 +24,10 @@ export default function HomePage({ settings }: { settings: any }) {
       <Countdown settings={settings.countdown} />
       <Itinerary settings={settings.itinerary} />
       <Gallery settings={settings.gallery} />
+      <DressCode settings={settings.dressCode} />
       <Accommodation settings={settings.accommodation} />
-      <DressCode />
       <GiftRegistry settings={settings.giftRegistry} />
-      <RSVPButton />
+      <RSVPButton settings={settings.rsvp} />
       
       <RSVPModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       

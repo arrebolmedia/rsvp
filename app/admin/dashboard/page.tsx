@@ -8,7 +8,7 @@ import { signOut } from 'next-auth/react'
 import { 
   FaUsers, FaCheck, FaClock, FaTimes, 
   FaFileExport, FaFileImport, FaSignOutAlt,
-  FaEdit, FaTrash, FaPlus, FaFilter, FaUserFriends
+  FaEdit, FaTrash, FaPlus, FaFilter, FaUserFriends, FaDownload
 } from 'react-icons/fa'
 
 interface Guest {
@@ -339,7 +339,16 @@ export default function DashboardPage() {
         {/* Acciones */}
         <div className="bg-white rounded-lg shadow p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="flex gap-2 w-full md:w-auto">
+            <div className="flex gap-2 w-full md:w-auto flex-wrap">
+              <a
+                href="/plantilla-invitados.csv"
+                download="plantilla-invitados.csv"
+                className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+              >
+                <FaDownload />
+                Descargar Plantilla
+              </a>
+
               <button
                 onClick={handleExport}
                 className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"

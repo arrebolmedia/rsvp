@@ -77,7 +77,7 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
           className="text-center text-white px-4"
         >
           <h1 className="font-elegant text-7xl md:text-9xl mb-6 drop-shadow-lg" style={{ fontWeight: 300, letterSpacing: '0.02em' }}>
-            Ana & Carlos
+            {settings?.brideName || 'Ana'} & {settings?.groomName || 'Carlos'}
           </h1>
           <div className="w-24 h-px bg-white/40 mx-auto mb-6"></div>
           <p className="text-xl md:text-2xl font-light tracking-[0.3em] uppercase mb-12" style={{ fontWeight: 300 }}>

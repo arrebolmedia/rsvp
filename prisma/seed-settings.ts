@@ -10,13 +10,15 @@ async function main() {
     create: {
       section: 'hero',
       content: {
+        brideName: 'Ana',
+        groomName: 'Carlos',
         slides: [
           { id: 1, image: '/images/hero/5.jpg', alt: 'Pareja de novios' },
           { id: 2, image: '/images/hero/10.jpg', alt: 'Momento romántico' },
           { id: 3, image: '/images/hero/24.jpg', alt: 'Celebración' },
           { id: 4, image: '/images/hero/28.jpg', alt: 'Juntos' },
         ],
-        weddingDate: '2026-06-15T17:00:00',
+        weddingDate: '2026-06-15T17:00:00-06:00', // Horario de México (CST)
       },
     },
   })
@@ -43,7 +45,7 @@ async function main() {
       section: 'countdown',
       content: {
         title: 'Cuenta Regresiva',
-        targetDate: '2026-06-15T17:00:00',
+        targetDate: '2026-06-15T17:00:00-06:00', // Horario de México (CST)
       },
     },
   })
@@ -90,6 +92,27 @@ async function main() {
     },
   })
 
+  // Dress Code
+  await prisma.siteSettings.upsert({
+    where: { section: 'dressCode' },
+    update: {},
+    create: {
+      section: 'dressCode',
+      content: {
+        title: 'Código de Vestimenta',
+        subtitle: 'Etiqueta Formal',
+        description: 'Les pedimos que nos acompañen vestidos de gala. Para los caballeros, traje oscuro o smoking. Para las damas, vestido largo o cocktail elegante.',
+        note: 'Por favor, evitar el uso de color blanco, que está reservado para la novia.',
+        icons: {
+          icon1: { icon: 'GiBowTie', label: 'Traje / Smoking' },
+          icon2: { icon: 'GiDress', label: 'Vestido Largo' },
+          icon3: { icon: 'FaUserTie', label: 'Corbata' },
+          icon4: { icon: 'GiHighHeel', label: 'Zapatos Elegantes' },
+        },
+      },
+    },
+  })
+
   // Accommodation
   await prisma.siteSettings.upsert({
     where: { section: 'accommodation' },
@@ -124,6 +147,22 @@ async function main() {
           { name: 'Liverpool', description: 'Mesa de regalos', link: 'https://mesaderegalos.liverpool.com.mx', eventNumber: '12345678' },
           { name: 'Amazon', description: 'Lista de deseos', link: 'https://www.amazon.com.mx/wedding', eventNumber: 'ABCD1234' },
         ],
+      },
+    },
+  })
+
+  // RSVP
+  await prisma.siteSettings.upsert({
+    where: { section: 'rsvp' },
+    update: {},
+    create: {
+      section: 'rsvp',
+      content: {
+        title: '¿Nos Acompañas?',
+        description: 'Por favor, confírmanos tu asistencia antes del 1 de junio de 2025',
+        buttonText: 'Confirmar Asistencia',
+        showDeadline: true,
+        deadline: '2025-06-01',
       },
     },
   })
