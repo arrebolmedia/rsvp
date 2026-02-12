@@ -51,7 +51,7 @@ export default function Accommodation({ settings }: { settings?: any }) {
   const hotels = settings?.hotels || defaultHotels
 
   return (
-    <section className="py-24 px-4 bg-background">
+    <section className="py-24 px-4" style={{ backgroundColor: 'var(--background)' }}>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
@@ -59,10 +59,10 @@ export default function Accommodation({ settings }: { settings?: any }) {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6" style={{ fontWeight: 300 }}>
+          <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {settings?.title || 'Hospedaje'}
           </h2>
-          <div className="w-24 h-px bg-accent-wine mx-auto mb-8"></div>
+          <div className="w-24 h-px bg-accent-blush mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto font-light text-base md:text-lg leading-relaxed">
             {settings?.description || 'Para nosotros es muy importante tu seguridad, estos son los lugares que recomendamos para tu instalación.'}
           </p>
@@ -78,12 +78,12 @@ export default function Accommodation({ settings }: { settings?: any }) {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="text-center flex flex-col items-center"
             >
-              <h3 className="font-elegant text-2xl text-foreground mb-4 uppercase tracking-wide" style={{ fontWeight: 300 }}>
+              <h3 className="font-elegant text-2xl text-foreground mb-4 uppercase tracking-wide">
                 {hotel.name}
               </h3>
               
-              <div className="space-y-2 mb-6 text-foreground/70 font-light text-sm md:text-base">
-                <p className="font-medium text-accent-wine">
+              <div className="space-y-2 mb-6 text-foreground/70 text-sm md:text-base">
+                <p className="font-medium text-accent-blush">
                   Código de evento: {hotel.code}
                 </p>
                 <p className="max-w-sm mx-auto">

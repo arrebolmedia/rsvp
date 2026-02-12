@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fernandayfernanda-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+    depends_on:
+      - db
+    networks:
+      - traefik-public
+      - internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      # HTTPS
+      - "traefik.http.routers.fernandayfernanda-secure.rule=Host(`fernandayfernanda.com`) || Host(`www.fernandayfernanda.com`)"
+      - "traefik.http.routers.fernandayfernanda-secure.entrypoints=https"
+      - "traefik.http.routers.fernandayfernanda-secure.tls=true"
+      - "traefik.http.routers.fernandayfernanda-secure.tls.certresolver=le"
+      - "traefik.http.services.fernandayfernanda.loadbalancer.server.port=3000"
+
+  db:
+    image: postgres:15-alpine
+    container_name: fernandayfernanda-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data_fernanda:/var/lib/postgresql/data
+    networks:
+      - internal
+
+networks:
+  traefik-public:
+    external: true
+  internal:
+    driver: bridge
+
+volumes:
+  postgres_data_fernanda:

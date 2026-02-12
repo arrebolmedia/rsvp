@@ -30,7 +30,7 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
   const registries = settings?.registries || defaultRegistries
 
   return (
-    <section className="py-24 px-4 bg-background">
+    <section className="py-24 px-4" style={{ backgroundColor: 'var(--background-alt)' }}>
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
@@ -38,10 +38,10 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6" style={{ fontWeight: 300 }}>
+          <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {settings?.title || 'Mesa de Regalos'}
           </h2>
-          <div className="w-24 h-px bg-accent-wine mx-auto mb-8"></div>
+          <div className="w-24 h-px bg-accent-blush mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
             {settings?.description || 'Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, hemos preparado estas opciones:'}
           </p>
@@ -57,17 +57,17 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="border-2 border-subtle p-8 text-center hover:border-accent-wine/40 transition-all duration-300"
+                className="border-2 border-subtle p-8 text-center hover:border-accent-terracotta/60 transition-all duration-300"
               >
-                <Icon className="text-5xl text-accent-wine mx-auto mb-6" />
+                <Icon className="text-5xl text-accent-terracotta mx-auto mb-6" />
                 <h3 className="font-elegant text-2xl text-foreground mb-3" style={{ fontWeight: 300 }}>
                   {registry.name}
                 </h3>
-                <p className="text-muted-foreground mb-6 font-light">{registry.description}</p>
+                <p className="text-muted-foreground mb-6">{registry.description}</p>
                 
                 {registry.eventNumber && (
                   <div className="mb-6">
-                    <p className="text-xs text-muted-foreground mb-2 tracking-[0.2em] uppercase font-light">Número de evento:</p>
+                    <p className="text-xs text-muted-foreground mb-2 tracking-[0.2em] uppercase">Número de evento:</p>
                     <p className="font-mono text-base text-foreground font-light">
                       {registry.eventNumber}
                     </p>
@@ -79,7 +79,7 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
                     href={registry.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block border-2 border-accent-wine text-accent-wine px-6 py-3 text-sm tracking-[0.2em] uppercase font-light hover:bg-accent-wine hover:text-white transition-all duration-300"
+                    className="inline-block border-2 border-accent-terracotta text-accent-terracotta px-6 py-3 text-sm tracking-[0.2em] uppercase hover:bg-accent-terracotta hover:text-white transition-all duration-300"
                   >
                     Ver Mesa
                   </a>
