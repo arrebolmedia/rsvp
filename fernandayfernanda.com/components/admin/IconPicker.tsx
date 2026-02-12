@@ -156,6 +156,7 @@ import {
   GiCrownOfThorns,
   GiQueenCrown,
   GiTiara,
+  GiElegantChameleon,
   GiStarFormation,
   GiNightSky,
   GiFireplace,
