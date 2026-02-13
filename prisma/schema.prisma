@@ -1,7 +1,8 @@
 // This is your Prisma schema file
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -25,11 +26,13 @@ model Guest {
   email                 String?
   phone                 String?
   maxCompanions         Int      @default(0) // Número máximo de acompañantes permitidos
+  tableNumber           Int?     // Número de mesa asignada
   rsvp                  RSVP?
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
   @@index([firstName, lastName])
+  @@index([tableNumber])
 }
 
 model RSVP {
