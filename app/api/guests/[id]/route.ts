@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
 // GET - Obtener un invitado específico
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -18,8 +18,10 @@ export async function GET(
       )
     }
 
+    const { id } = await params
+
     const guest = await prisma.guest.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { rsvp: true },
     })
 
@@ -43,7 +45,7 @@ export async function GET(
 // PUT - Actualizar invitado
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -55,17 +57,26 @@ export async function PUT(
       )
     }
 
+    const { id } = await params
     const body = await request.json()
-    const { firstName, lastName, email, phone, maxCompanions } = body
+    const { firstName, lastName, email, phone, maxCompanions, tableNumber } = body
+
+    if (!firstName || !lastName) {
+      return NextResponse.json(
+        { error: 'Nombre y apellido son requeridos' },
+        { status: 400 }
+      )
+    }
 
     const guest = await prisma.guest.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         firstName,
         lastName,
-        email,
-        phone,
-        maxCompanions,
+        email: email || null,
+        phone: phone || null,
+        maxCompanions: parseInt(maxCompanions) || 0,
+        tableNumber: tableNumber ? parseInt(tableNumber) : null,
       },
       include: { rsvp: true },
     })
@@ -74,7 +85,7 @@ export async function PUT(
   } catch (error) {
     console.error('Error updating guest:', error)
     return NextResponse.json(
-      { error: 'Error al actualizar invitado' },
+      { error: 'Error al actualizar invitado', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
@@ -83,7 +94,7 @@ export async function PUT(
 // DELETE - Eliminar invitado
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -95,8 +106,10 @@ export async function DELETE(
       )
     }
 
+    const { id } = await params
+
     await prisma.guest.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ success: true })

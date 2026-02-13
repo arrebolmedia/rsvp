@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json()
-    const { firstName, lastName, email, phone, maxCompanions } = body
+    const { firstName, lastName, email, phone, maxCompanions, tableNumber } = body
 
     if (!firstName || !lastName) {
       return NextResponse.json(
@@ -60,9 +60,10 @@ export async function POST(request: Request) {
       data: {
         firstName,
         lastName,
-        email,
-        phone,
-        maxCompanions: maxCompanions || 0,
+        email: email || null,
+        phone: phone || null,
+        maxCompanions: parseInt(maxCompanions) || 0,
+        tableNumber: tableNumber ? parseInt(tableNumber) : null,
       },
     })
 
