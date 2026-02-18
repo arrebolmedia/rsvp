@@ -27,7 +27,15 @@ const iconMap: any = {
 }
 
 export default function GiftRegistry({ settings }: { settings?: any }) {
-  const registries = settings?.registries || defaultRegistries
+  const registries = settings?.registries
+    || (settings?.accounts
+      ? settings.accounts.map((account: any) => ({
+          icon: 'FaGift',
+          name: account.bank || 'Cuenta bancaria',
+          description: account.accountHolder || '',
+          eventNumber: account.accountNumber || '',
+        }))
+      : defaultRegistries)
 
   return (
     <section className="py-24 px-4" style={{ backgroundColor: 'var(--background-alt)' }}>
@@ -67,7 +75,9 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
                 
                 {registry.eventNumber && (
                   <div className="mb-6">
-                    <p className="text-xs text-muted-foreground mb-2 tracking-[0.2em] uppercase">Número de evento:</p>
+                    <p className="text-xs text-muted-foreground mb-2 tracking-[0.2em] uppercase">
+                      {settings?.accounts ? 'Número de cuenta:' : 'Número de evento:'}
+                    </p>
                     <p className="font-mono text-base text-foreground font-light">
                       {registry.eventNumber}
                     </p>

@@ -288,8 +288,6 @@ function HeroVideo({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
 function HeroMinimal({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
   const colors = design?.colors || {}
   const fonts = design?.fonts || {}
-  const slides = settings?.slides || defaultSlides
-  const mainImage = slides[0]?.image || '/images/hero/5.jpg'
 
   return (
     <section 
@@ -306,16 +304,6 @@ function HeroMinimal({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
       >
         {settings?.brideName?.toUpperCase() || 'ANA'} & {settings?.groomName?.toUpperCase() || 'CARLOS'}
       </h1>
-
-      <div className="relative w-full max-w-[280px] md:max-w-[320px] lg:max-w-[360px] aspect-[3/4] overflow-hidden">
-        <Image
-          src={mainImage}
-          alt="Pareja"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
 
       <div className="text-center">
         <p 
