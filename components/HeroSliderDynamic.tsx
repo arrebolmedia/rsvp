@@ -307,7 +307,7 @@ function HeroMinimal({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
 
       <div className="text-center">
         <p 
-          className="text-sm md:text-base tracking-wider mb-6"
+          className="text-base md:text-lg tracking-wider mb-6"
           style={{ 
             fontFamily: fonts.heading || 'Cormorant',
             color: colors.text || '#2B2B2B'

@@ -184,10 +184,9 @@ async function main() {
       section: 'rsvp',
       content: {
         title: '¿Nos Acompañas?',
-        description: 'Por favor, confírmanos tu asistencia antes del 1 de junio de 2025',
+        description: 'Por favor, confírmanos tu asistencia',
         buttonText: 'Confirmar Asistencia',
-        showDeadline: true,
-        deadline: '2025-06-01',
+        showDeadline: false,
       },
     },
   })

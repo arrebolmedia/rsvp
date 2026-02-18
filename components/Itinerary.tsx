@@ -78,9 +78,6 @@ export default function Itinerary({ settings }: { settings?: any }) {
                 </div>
                 
                 <div className="flex-grow text-center md:text-left">
-                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mb-3">
-                    {event.time}
-                  </div>
                   <h3 className="font-elegant text-2xl text-foreground mb-2">
                     {event.title}
                   </h3>
@@ -90,6 +87,9 @@ export default function Itinerary({ settings }: { settings?: any }) {
                   <p className="text-muted-foreground text-sm">
                     {event.description}
                   </p>
+                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mt-4">
+                    {event.time}
+                  </div>
                 </div>
               </motion.div>
             )
