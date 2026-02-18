@@ -35,13 +35,13 @@ async function main() {
     create: {
       section: 'hero',
       content: {
-        brideName: 'Ana',
-        groomName: 'Carlos',
+        brideName: 'Fernanda',
+        groomName: 'Fernanda',
         slides: [
-          { id: 1, image: '/images/hero/5.jpg', alt: 'Pareja de novios' },
+          { id: 1, image: '/images/hero/5.jpg', alt: 'Pareja de novias' },
           { id: 2, image: '/images/hero/10.jpg', alt: 'Momento romántico' },
           { id: 3, image: '/images/hero/24.jpg', alt: 'Celebración' },
-          { id: 4, image: '/images/hero/28.jpg', alt: 'Juntos' },
+          { id: 4, image: '/images/hero/28.jpg', alt: 'Juntas' },
         ],
         weddingDate: '2026-06-15T17:00:00-06:00', // Horario de México (CST)
       },
