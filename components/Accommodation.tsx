@@ -50,6 +50,28 @@ const defaultHotels = [
 export default function Accommodation({ settings }: { settings?: any }) {
   const hotels = settings?.hotels || defaultHotels
 
+  const getHotelLink = (hotel: any) => hotel?.url || hotel?.link || ''
+
+  const getPhoneHref = (phone: string) => {
+    if (!phone) return ''
+    if (phone.startsWith('http://') || phone.startsWith('https://') || phone.startsWith('wa.me/')) {
+      return phone.startsWith('wa.me/') ? `https://${phone}` : phone
+    }
+
+    const digits = phone.replace(/\D/g, '')
+    if (!digits) return ''
+    return `tel:+${digits}`
+  }
+
+  const getWhatsappHref = (hotel: any) => {
+    const whatsapp = hotel?.whatsapp || hotel?.wa || ''
+    if (whatsapp.startsWith('http://') || whatsapp.startsWith('https://') || whatsapp.startsWith('wa.me/')) {
+      return whatsapp.startsWith('wa.me/') ? `https://${whatsapp}` : whatsapp
+    }
+    const digits = (whatsapp || hotel?.phone || '').replace(/\D/g, '')
+    return digits ? `https://wa.me/${digits}` : ''
+  }
+
   return (
     <section className="py-24 px-4" style={{ backgroundColor: 'var(--background)' }}>
       <div className="max-w-6xl mx-auto">
@@ -89,19 +111,44 @@ export default function Accommodation({ settings }: { settings?: any }) {
                 <p className="max-w-sm mx-auto">
                   {hotel.address}
                 </p>
-                <p>
-                  Tel: {hotel.phone}
-                </p>
+                {hotel.phone && (
+                  <p>
+                    Tel:{' '}
+                    <a
+                      href={getPhoneHref(hotel.phone)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-4 hover:text-accent-wine transition-colors"
+                    >
+                      {hotel.phone}
+                    </a>
+                  </p>
+                )}
+                {getWhatsappHref(hotel) && (
+                  <p>
+                    WhatsApp:{' '}
+                    <a
+                      href={getWhatsappHref(hotel)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-4 hover:text-accent-wine transition-colors"
+                    >
+                      Contactar
+                    </a>
+                  </p>
+                )}
               </div>
 
-              <a
-                href={hotel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 py-3 bg-accent-wine text-white text-xs tracking-[0.2em] uppercase hover:bg-primary-900 transition-colors duration-300"
-              >
-                Más Información
-              </a>
+              {getHotelLink(hotel) && getHotelLink(hotel) !== '#' && (
+                <a
+                  href={getHotelLink(hotel)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-8 py-3 bg-accent-wine text-white text-xs tracking-[0.2em] uppercase hover:bg-primary-900 transition-colors duration-300"
+                >
+                  Más Información
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
