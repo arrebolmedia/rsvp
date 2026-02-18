@@ -8,7 +8,7 @@ export default function RSVPButton({ settings }: { settings?: any }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const title = settings?.title || '¿Nos Acompañas?'
-  const description = settings?.description || 'Por favor, confírmanos tu asistencia antes del 1 de junio de 2025'
+  const description = settings?.description || 'Por favor, confírmanos tu asistencia'
   const buttonText = settings?.buttonText || 'Confirmar Asistencia'
   const showDeadline = settings?.showDeadline ?? false
   const deadline = settings?.deadline
