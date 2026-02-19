@@ -32,7 +32,7 @@ export default function Gallery({ settings }: { settings?: any }) {
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {settings?.title || 'Nuestra Historia'}
           </h2>
-          <div className="w-24 h-px bg-accent-blush mx-auto mb-8"></div>
+          <div className="w-24 h-0.5 bg-accent-blush mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto font-light text-base md:text-lg leading-relaxed">
             Algunos momentos especiales que hemos compartido juntos
           </p>

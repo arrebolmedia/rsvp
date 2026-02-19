@@ -50,7 +50,7 @@ export default function DressCode({ settings }: { settings?: any }) {
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {title}
           </h2>
-          <div className="w-24 h-px bg-accent-blush mx-auto mb-12"></div>
+          <div className="w-24 h-0.5 bg-accent-blush mx-auto mb-12"></div>
           
           <div className="border-2 border-subtle p-8 md:p-12">
             <div className="mb-10">

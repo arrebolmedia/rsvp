@@ -56,7 +56,7 @@ export default function Itinerary({ settings }: { settings?: any }) {
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {settings?.title || 'Itinerario'}
           </h2>
-          <div className="w-24 h-px bg-accent-blush mx-auto"></div>
+          <div className="w-24 h-0.5 bg-accent-blush mx-auto"></div>
         </motion.div>
 
         <div className="space-y-8">
@@ -78,6 +78,11 @@ export default function Itinerary({ settings }: { settings?: any }) {
                 </div>
                 
                 <div className="flex-grow text-center md:text-left">
+                  {event.day && (
+                    <p className="text-sm tracking-[0.2em] uppercase text-foreground/50 mb-1">
+                      {event.day}
+                    </p>
+                  )}
                   <h3 className="font-elegant text-2xl text-foreground mb-2">
                     {event.title}
                   </h3>
@@ -87,9 +92,26 @@ export default function Itinerary({ settings }: { settings?: any }) {
                   <p className="text-muted-foreground text-sm">
                     {event.description}
                   </p>
-                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mt-4">
+                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mt-4 whitespace-pre-line leading-8">
                     {event.time}
                   </div>
+                  {event.dressCode && (
+                    <p className="text-foreground/70 text-sm mt-3">
+                      <span className="uppercase tracking-[0.15em]">Código de vestimenta:</span>{' '}
+                      {event.dressCodeLink ? (
+                        <a href={event.dressCodeLink} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70 transition-opacity">
+                          {event.dressCode}
+                        </a>
+                      ) : (
+                        event.dressCode
+                      )}
+                    </p>
+                  )}
+                  {event.dressCodeNote && (
+                    <p className="text-foreground/50 text-xs mt-2 italic">
+                      {event.dressCodeNote}
+                    </p>
+                  )}
                 </div>
               </motion.div>
             )

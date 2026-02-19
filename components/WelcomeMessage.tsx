@@ -15,7 +15,7 @@ export default function WelcomeMessage({ settings }: { settings?: any }) {
         <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
           {settings?.title || 'Nos Casamos'}
         </h2>
-        <div className="w-24 h-px bg-accent-blush mx-auto mb-10"></div>
+        <div className="w-24 h-0.5 bg-accent-blush mx-auto mb-10"></div>
         <p className="text-lg md:text-xl text-foreground/80 leading-relaxed mb-8">
           {settings?.message1 || 'Nos complace invitarte a celebrar uno de los días más especiales de nuestras vidas.'}
         </p>

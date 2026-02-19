@@ -58,7 +58,7 @@ export default function HomePage({ settings }: { settings: any }) {
       <RSVPModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       
       <footer className="bg-primary-900 text-white py-8 text-center">
-        <p className="text-sm">{settings.footer?.text || '© 2026 | Fernanda & Fernanda'}</p>
+        <p className="text-sm">{(settings.footer?.text || '© | Arrebol Weddings').replace(/©\s*\d{4}/, `© ${new Date().getFullYear()}`)}</p>
       </footer>
     </main>
   )
