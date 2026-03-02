@@ -27,7 +27,11 @@ export default function HeroSliderDynamic({ onOpenRSVP, settings, design }: Hero
   if (heroType === 'minimal') {
     return <HeroMinimal onOpenRSVP={onOpenRSVP} settings={settings} design={design} />
   }
-  
+
+  if (heroType === 'texture') {
+    return <HeroTexture onOpenRSVP={onOpenRSVP} settings={settings} design={design} />
+  }
+
   return <HeroClassic onOpenRSVP={onOpenRSVP} settings={settings} design={design} />
 }
 
@@ -280,6 +284,84 @@ function HeroVideo({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
           </motion.button>
         </motion.div>
       </div>
+    </section>
+  )
+}
+
+// Hero tipo Textura (fondo verde con textura)
+function HeroTexture({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
+  const fonts = design?.fonts || {}
+
+  return (
+    <section
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: '#2C3424' }}
+    >
+      {/* Textura de fondo */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/images/hero-texture.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+
+      {/* Contenido */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="relative z-10 text-center px-4"
+      >
+        <h1
+          className="text-7xl md:text-9xl mb-6"
+          style={{
+            fontFamily: fonts.heading || 'Cormorant',
+            fontWeight: fonts.headingWeight || 100,
+            letterSpacing: '0.02em',
+            color: '#FFFFFF',
+          }}
+        >
+          {settings?.brideName || 'Ana'} & {settings?.groomName || 'Carlos'}
+        </h1>
+        <div className="w-24 h-px mx-auto mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.4)' }} />
+        <p
+          className="text-lg md:text-xl tracking-[0.3em] uppercase mb-10"
+          style={{
+            fontFamily: fonts.body || 'Montserrat',
+            color: 'rgba(255,255,255,0.85)',
+          }}
+        >
+          {settings?.weddingDate
+            ? new Date(settings.weddingDate).toLocaleDateString('es-MX', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })
+            : getShortWeddingDate()}
+        </p>
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          onClick={onOpenRSVP}
+          className="inline-block px-12 py-4 border-2 text-sm tracking-[0.2em] uppercase transition-all duration-300"
+          style={{
+            fontFamily: fonts.body || 'Montserrat',
+            borderColor: 'rgba(255,255,255,0.7)',
+            color: '#FFFFFF',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent'
+          }}
+        >
+          Confirmar Asistencia
+        </motion.button>
+      </motion.div>
     </section>
   )
 }

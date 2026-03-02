@@ -25,9 +25,9 @@ export default function HomePage({ settings }: { settings: any }) {
         root.style.setProperty('--background', colors.background || '#FAF8F5')
         root.style.setProperty('--background-alt', colors.background ? `color-mix(in srgb, ${colors.background} 97%, #8B8B8B)` : '#F8F6F2')
         root.style.setProperty('--foreground', colors.text || '#2B2B2B')
-        root.style.setProperty('--accent-terracotta', colors.secondary || '#C67B5C')
+        root.style.setProperty('--accent-terracotta', colors.secondary || '#4A6741')
         root.style.setProperty('--accent-blush', colors.accent || '#E8C4B8')
-        root.style.setProperty('--accent-wine', colors.primary || '#8B5A6F')
+        root.style.setProperty('--accent-wine', colors.primary || '#4A6741')
       }
       
       if (fonts) {

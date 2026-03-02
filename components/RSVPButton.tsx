@@ -26,7 +26,7 @@ export default function RSVPButton({ settings }: { settings?: any }) {
 
   return (
     <>
-      <section className="py-24 px-4 bg-gradient-to-br from-accent-wine to-accent-terracotta text-white">
+      <section className="py-24 px-4 text-white" style={{ background: 'linear-gradient(to bottom right, #1e2619, #2C3424)' }}>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
