@@ -43,6 +43,8 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'CONFIRMED' | 'PENDING' | 'DECLINED'>('all')
   const [searchTerm, setSearchTerm] = useState('')
+  const [sortField, setSortField] = useState<'nombre' | 'pases' | 'status' | null>(null)
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingGuest, setEditingGuest] = useState<Guest | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
@@ -94,7 +96,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     applyFilters()
-  }, [guests, filter, searchTerm])
+  }, [guests, filter, searchTerm, sortField, sortDir])
 
   const fetchData = async () => {
     try {
@@ -138,7 +140,38 @@ export default function DashboardPage() {
       )
     }
 
+    // Ordenamiento
+    if (sortField) {
+      filtered = [...filtered].sort((a, b) => {
+        let aVal: string | number = ''
+        let bVal: string | number = ''
+        if (sortField === 'nombre') {
+          aVal = `${a.firstName} ${a.lastName}`.toLowerCase()
+          bVal = `${b.firstName} ${b.lastName}`.toLowerCase()
+        } else if (sortField === 'pases') {
+          aVal = a.maxCompanions + 1
+          bVal = b.maxCompanions + 1
+        } else if (sortField === 'status') {
+          const order = { CONFIRMED: 0, PENDING: 1, DECLINED: 2 }
+          aVal = order[a.rsvp?.status as keyof typeof order] ?? 1
+          bVal = order[b.rsvp?.status as keyof typeof order] ?? 1
+        }
+        if (aVal < bVal) return sortDir === 'asc' ? -1 : 1
+        if (aVal > bVal) return sortDir === 'asc' ? 1 : -1
+        return 0
+      })
+    }
+
     setFilteredGuests(filtered)
+  }
+
+  const handleSort = (field: 'nombre' | 'pases' | 'status') => {
+    if (sortField === field) {
+      setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortField(field)
+      setSortDir('asc')
+    }
   }
 
   const handleExport = async () => {
@@ -439,17 +472,22 @@ export default function DashboardPage() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Nombre
-                  </th>
+                  {(['nombre', 'pases', 'status'] as const).map((field) => (
+                    <th
+                      key={field}
+                      onClick={() => handleSort(field)}
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer select-none hover:bg-gray-100 transition-colors"
+                    >
+                      <span className="flex items-center gap-1">
+                        {field === 'nombre' ? 'Nombre' : field === 'pases' ? 'Pases' : 'Estado'}
+                        <span className="text-gray-400">
+                          {sortField === field ? (sortDir === 'asc' ? ' ↑' : ' ↓') : ' ↕'}
+                        </span>
+                      </span>
+                    </th>
+                  ))}
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Contacto
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Pases
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Estado
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Mensaje
@@ -466,10 +504,6 @@ export default function DashboardPage() {
                       <div className="font-medium text-gray-900">
                         {guest.firstName} {guest.lastName}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {guest.email && <div>{guest.email}</div>}
-                      {guest.phone && <div>{guest.phone}</div>}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       <div>Máx: {guest.maxCompanions + 1}</div>
@@ -495,6 +529,10 @@ export default function DashboardPage() {
                           ? 'No asiste'
                           : 'Pendiente'}
                       </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {guest.email && <div>{guest.email}</div>}
+                      {guest.phone && <div>{guest.phone}</div>}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
                       {guest.rsvp?.message || '-'}
