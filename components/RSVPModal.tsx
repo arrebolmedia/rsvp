@@ -239,25 +239,30 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                           <button
                             key={guest.id}
                             onClick={() => handleSelectGuest(guest)}
-                            className="w-full p-5 border border-subtle hover:bg-accent-wine/5 hover:border-accent-wine/40 transition-all duration-300 text-left"
+                            className="w-full p-5 border border-subtle hover:bg-accent-wine/5 hover:border-accent-wine/40 transition-all duration-300 text-left flex items-center justify-between group"
                           >
-                            <div className="font-elegant text-lg text-foreground">
-                              {guest.firstName} {guest.lastName}
+                            <div>
+                              <div className="font-elegant text-lg text-foreground">
+                                {guest.firstName} {guest.lastName}
+                              </div>
+                              <div className="text-sm text-muted-foreground font-light mt-1">
+                                Pases: {guest.maxCompanions + 1}
+                                {guest.rsvp && (
+                                  <span className={`ml-2 ${
+                                    guest.rsvp.status === 'CONFIRMED' ? 'text-green-600' :
+                                    guest.rsvp.status === 'DECLINED' ? 'text-red-600' :
+                                    'text-yellow-600'
+                                  }`}>
+                                    • {guest.rsvp.status === 'CONFIRMED' ? 'Confirmado' :
+                                       guest.rsvp.status === 'DECLINED' ? 'No asistirá' :
+                                       'Pendiente'}
+                                  </span>
+                                )}
+                              </div>
                             </div>
-                            <div className="text-sm text-muted-foreground font-light mt-1">
-                              Pases: {guest.maxCompanions + 1} 
-                              {guest.rsvp && (
-                                <span className={`ml-2 ${
-                                  guest.rsvp.status === 'CONFIRMED' ? 'text-green-600' : 
-                                  guest.rsvp.status === 'DECLINED' ? 'text-red-600' : 
-                                  'text-yellow-600'
-                                }`}>
-                                  • {guest.rsvp.status === 'CONFIRMED' ? 'Confirmado' : 
-                                     guest.rsvp.status === 'DECLINED' ? 'No asistirá' : 
-                                     'Pendiente'}
-                                </span>
-                              )}
-                            </div>
+                            <span className="text-xs tracking-[0.15em] uppercase text-accent-wine font-light opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap ml-4">
+                              Confirma tu asistencia →
+                            </span>
                           </button>
                         ))}
                       </div>
