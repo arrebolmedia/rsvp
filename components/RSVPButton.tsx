@@ -8,7 +8,7 @@ export default function RSVPButton({ settings }: { settings?: any }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const title = settings?.title || '¿Nos Acompañas?'
-  const description = settings?.description || 'Por favor, confírmanos tu asistencia'
+  const description = settings?.description || 'Por favor, confírmanos tu asistencia antes del 1 de junio de 2025'
   const buttonText = settings?.buttonText || 'Confirmar Asistencia'
   const showDeadline = settings?.showDeadline ?? false
   const deadline = settings?.deadline
@@ -26,7 +26,7 @@ export default function RSVPButton({ settings }: { settings?: any }) {
 
   return (
     <>
-      <section className="py-24 px-4 text-white" style={{ background: 'linear-gradient(to bottom right, #1e2619, #2C3424)' }}>
+      <section className="py-24 px-4 bg-gradient-to-br from-accent-wine to-accent-terracotta text-white">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

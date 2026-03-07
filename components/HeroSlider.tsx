@@ -46,8 +46,7 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
   }, [])
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-background">
-      {/* Imágenes en segundo plano con baja opacidad */}
+    <section className="relative h-screen w-full overflow-hidden">
       <AnimatePresence>
         <motion.div
           key={currentSlide}
@@ -55,15 +54,17 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.5 }}
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0"
         >
-          <Image
-            src={slides[currentSlide].image}
-            alt={slides[currentSlide].alt}
-            fill
-            className="object-cover"
-            priority
-          />
+          <div className="relative h-full w-full bg-gradient-to-b from-black/30 to-black/50">
+            <Image
+              src={slides[currentSlide].image}
+              alt={slides[currentSlide].alt}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </motion.div>
       </AnimatePresence>
 
@@ -73,13 +74,13 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="text-center text-foreground px-4"
+          className="text-center text-white px-4"
         >
-          <h1 className="font-elegant text-7xl md:text-9xl mb-6" style={{ fontWeight: 300, letterSpacing: '0.02em' }}>
+          <h1 className="font-elegant text-7xl md:text-9xl mb-6 drop-shadow-lg" style={{ fontWeight: 300, letterSpacing: '0.02em' }}>
             {settings?.brideName || 'Ana'} & {settings?.groomName || 'Carlos'}
           </h1>
-          <div className="w-24 h-px bg-accent-wine/40 mx-auto mb-6"></div>
-          <p className="text-xl md:text-2xl font-light tracking-[0.3em] uppercase mb-12 opacity-80" style={{ fontWeight: 300 }}>
+          <div className="w-24 h-px bg-white/40 mx-auto mb-6"></div>
+          <p className="text-xl md:text-2xl font-light tracking-[0.3em] uppercase mb-12" style={{ fontWeight: 300 }}>
             {settings?.weddingDate ? new Date(settings.weddingDate).toLocaleDateString('es-MX', { 
               day: 'numeric', 
               month: 'long', 
@@ -91,7 +92,7 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
             onClick={onOpenRSVP}
-            className="inline-block px-12 py-4 border-2 border-accent-wine text-accent-wine font-light text-sm tracking-[0.2em] uppercase hover:bg-accent-wine hover:text-white transition-all duration-300 shadow-lg"
+            className="inline-block px-12 py-4 border-2 border-white text-white font-light text-sm tracking-[0.2em] uppercase hover:bg-white hover:text-accent-wine transition-all duration-300 shadow-lg"
           >
             Confirmar Asistencia
           </motion.button>
@@ -104,8 +105,8 @@ export default function HeroSlider({ onOpenRSVP, settings }: HeroSliderProps) {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-3 rounded-full transition-all ${
-              currentSlide === index ? 'bg-accent-wine w-8' : 'bg-accent-wine/50 w-3'
+            className={`w-3 h-3 rounded-full transition-all ${
+              currentSlide === index ? 'bg-white w-8' : 'bg-white/50'
             }`}
             aria-label={`Ir al slide ${index + 1}`}
           />

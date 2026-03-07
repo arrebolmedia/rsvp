@@ -27,11 +27,7 @@ export default function HeroSliderDynamic({ onOpenRSVP, settings, design }: Hero
   if (heroType === 'minimal') {
     return <HeroMinimal onOpenRSVP={onOpenRSVP} settings={settings} design={design} />
   }
-
-  if (heroType === 'texture') {
-    return <HeroTexture onOpenRSVP={onOpenRSVP} settings={settings} design={design} />
-  }
-
+  
   return <HeroClassic onOpenRSVP={onOpenRSVP} settings={settings} design={design} />
 }
 
@@ -59,11 +55,7 @@ function HeroClassic({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
   }, [slides.length])
 
   return (
-    <section 
-      className="relative h-screen w-full overflow-hidden"
-      style={{ backgroundColor: colors.background || '#FAF8F5' }}
-    >
-      {/* Imágenes en segundo plano con baja opacidad */}
+    <section className="relative h-screen w-full overflow-hidden">
       <AnimatePresence>
         <motion.div
           key={currentSlide}
@@ -71,8 +63,14 @@ function HeroClassic({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.5 }}
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0"
         >
+          <div 
+            className="absolute inset-0 z-10" 
+            style={{
+              background: `linear-gradient(to bottom, rgba(0,0,0,${overlayOpacity}), rgba(0,0,0,${overlayOpacity + 0.2}))`
+            }}
+          />
           <Image
             src={slides[currentSlide].image}
             alt={slides[currentSlide].alt}
@@ -84,34 +82,37 @@ function HeroClassic({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
       </AnimatePresence>
 
       <div className="absolute inset-0 flex items-center justify-center z-20">
+        {/* DEBUG PANEL - Temporal */}
+        <div className="absolute top-4 left-4 bg-black/80 text-white p-4 text-xs z-50 rounded max-w-sm">
+          <div className="font-bold mb-2">DEBUG INFO:</div>
+          <div>Hero Type: {design?.heroType || 'undefined'}</div>
+          <div>Heading Font: {fonts.heading || 'undefined'}</div>
+          <div>Body Font: {fonts.body || 'undefined'}</div>
+          <div>Primary Color: {colors.primary || 'undefined'}</div>
+          <div className="mt-2 text-[10px] opacity-70">
+            Design prop: {design ? 'exists' : 'missing'}
+          </div>
+        </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="text-center px-4"
+          className="text-center text-white px-4"
         >
           <h1 
-            className="text-7xl md:text-9xl mb-6" 
+            className="text-7xl md:text-9xl mb-6 drop-shadow-lg" 
             style={{ 
               fontFamily: fonts.heading || 'Cormorant',
               fontWeight: fonts.headingWeight || 100, 
-              letterSpacing: '0.02em',
-              color: colors.text || '#2B2B2B'
+              letterSpacing: '0.02em' 
             }}
           >
             {settings?.brideName || 'Ana'} & {settings?.groomName || 'Carlos'}
           </h1>
-          <div 
-            className="w-24 h-px mx-auto mb-4"
-            style={{ backgroundColor: colors.primary || '#8B4444', opacity: 0.4 }}
-          ></div>
+          <div className="w-24 h-px bg-white/40 mx-auto mb-4"></div>
           <p 
             className="text-lg md:text-xl tracking-[0.3em] uppercase mb-8"
-            style={{ 
-              fontFamily: fonts.body || 'Montserrat',
-              color: colors.text || '#2B2B2B',
-              opacity: 0.8
-            }}
+            style={{ fontFamily: fonts.body || 'Montserrat' }}
           >
             {settings?.weddingDate ? new Date(settings.weddingDate).toLocaleDateString('es-MX', { 
               day: 'numeric', 
@@ -124,19 +125,15 @@ function HeroClassic({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
             onClick={onOpenRSVP}
-            className="inline-block px-12 py-4 border-2 text-sm tracking-[0.2em] uppercase transition-all duration-300 shadow-lg"
+            className="inline-block px-12 py-4 border-2 border-white text-white text-sm tracking-[0.2em] uppercase hover:bg-white transition-all duration-300 shadow-lg"
             style={{ 
               fontFamily: fonts.body || 'Montserrat',
-              borderColor: colors.primary || '#8B4444',
-              color: colors.primary || '#8B4444'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = colors.primary || '#8B4444'
-              e.currentTarget.style.color = 'white'
+              e.currentTarget.style.color = colors.primary || '#8B4444'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-              e.currentTarget.style.color = colors.primary || '#8B4444'
+              e.currentTarget.style.color = 'white'
             }}
           >
             Confirmar Asistencia
@@ -149,13 +146,9 @@ function HeroClassic({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all`}
-            style={{
-              backgroundColor: currentSlide === index 
-                ? (colors.primary || '#8B4444')
-                : `${colors.primary || '#8B4444'}80`,
-              width: currentSlide === index ? '2rem' : '0.75rem'
-            }}
+            className={`w-3 h-3 rounded-full transition-all ${
+              currentSlide === index ? 'bg-white w-8' : 'bg-white/50'
+            }`}
             aria-label={`Ir al slide ${index + 1}`}
           />
         ))}
@@ -197,19 +190,18 @@ function HeroVideo({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
   }, [])
 
   return (
-    <section 
-      className="relative h-screen w-full overflow-hidden"
-      style={{ backgroundColor: colors.background || '#FAF8F5' }}
-    >
-      {/* Video Hero en loop con baja opacidad */}
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Video Hero en loop */}
       <video
         ref={videoRef}
         src={videoUrl}
         muted
         loop
         playsInline
-        className="absolute inset-0 h-full w-full object-cover grayscale opacity-10 z-0"
+        className="absolute inset-0 h-full w-full object-cover grayscale z-0"
       />
+
+      <div className="absolute inset-0 bg-black/30 z-10" />
       
       {/* Loader */}
       <div 
@@ -234,25 +226,20 @@ function HeroVideo({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="text-center"
+          className="text-center text-white"
         >
           <h1 
             className="text-6xl md:text-8xl mb-8" 
             style={{ 
               fontFamily: fonts.heading || 'Cormorant',
-              letterSpacing: '0.02em',
-              color: colors.text || '#2B2B2B'
+              letterSpacing: '0.02em'
             }}
           >
             {settings?.brideName || 'Ana'} & {settings?.groomName || 'Carlos'}
           </h1>
           <p 
             className="text-xl md:text-2xl mb-12 tracking-wider uppercase"
-            style={{ 
-              fontFamily: fonts.body || 'Montserrat',
-              color: colors.text || '#2B2B2B',
-              opacity: 0.8
-            }}
+            style={{ fontFamily: fonts.body || 'Montserrat' }}
           >
             {settings?.weddingDate ? new Date(settings.weddingDate).toLocaleDateString('es-MX', { 
               day: 'numeric', 
@@ -265,19 +252,15 @@ function HeroVideo({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.5, duration: 0.5 }}
             onClick={onOpenRSVP}
-            className="px-12 py-4 border-2 transition-all duration-300 text-sm tracking-[0.2em] uppercase"
-            style={{ 
-              fontFamily: fonts.body || 'Montserrat',
-              borderColor: colors.primary || '#8B4444',
-              color: colors.primary || '#8B4444'
-            }}
+            className="px-12 py-4 border-2 border-white text-white hover:bg-white transition-all duration-300 text-sm tracking-[0.2em] uppercase"
+            style={{ fontFamily: fonts.body || 'Montserrat' }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = colors.primary || '#8B4444'
-              e.currentTarget.style.color = 'white'
+              e.currentTarget.style.backgroundColor = 'white'
+              e.currentTarget.style.color = colors.primary || '#8B4444'
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = 'transparent'
-              e.currentTarget.style.color = colors.primary || '#8B4444'
+              e.currentTarget.style.color = 'white'
             }}
           >
             Confirmar Asistencia
@@ -288,88 +271,12 @@ function HeroVideo({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
   )
 }
 
-// Hero tipo Textura (fondo verde con textura)
-function HeroTexture({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
-  const fonts = design?.fonts || {}
-
-  return (
-    <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: '#2C3424' }}
-    >
-      {/* Textura de fondo */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: 'url(/images/hero-texture.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-
-      {/* Contenido */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 1 }}
-        className="relative z-10 text-center px-4"
-      >
-        <h1
-          className="text-7xl md:text-9xl mb-6"
-          style={{
-            fontFamily: fonts.heading || 'Cormorant',
-            fontWeight: fonts.headingWeight || 100,
-            letterSpacing: '0.02em',
-            color: '#FFFFFF',
-          }}
-        >
-          {settings?.brideName || 'Ana'} & {settings?.groomName || 'Carlos'}
-        </h1>
-        <div className="w-24 h-px mx-auto mb-6" style={{ backgroundColor: 'rgba(255,255,255,0.4)' }} />
-        <p
-          className="text-lg md:text-xl tracking-[0.3em] uppercase mb-10"
-          style={{
-            fontFamily: fonts.body || 'Montserrat',
-            color: 'rgba(255,255,255,0.85)',
-          }}
-        >
-          {settings?.weddingDate
-            ? new Date(settings.weddingDate).toLocaleDateString('es-MX', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              })
-            : getShortWeddingDate()}
-        </p>
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          onClick={onOpenRSVP}
-          className="inline-block px-12 py-4 border-2 text-sm tracking-[0.2em] uppercase transition-all duration-300"
-          style={{
-            fontFamily: fonts.body || 'Montserrat',
-            borderColor: 'rgba(255,255,255,0.7)',
-            color: '#FFFFFF',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'transparent'
-          }}
-        >
-          Confirmar Asistencia
-        </motion.button>
-      </motion.div>
-    </section>
-  )
-}
-
 // Hero tipo Minimalista (estilo Arrebol)
 function HeroMinimal({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
   const colors = design?.colors || {}
   const fonts = design?.fonts || {}
+  const slides = settings?.slides || defaultSlides
+  const mainImage = slides[0]?.image || '/images/hero/5.jpg'
 
   return (
     <section 
@@ -387,9 +294,19 @@ function HeroMinimal({ onOpenRSVP, settings, design }: HeroSliderDynamicProps) {
         {settings?.brideName?.toUpperCase() || 'ANA'} & {settings?.groomName?.toUpperCase() || 'CARLOS'}
       </h1>
 
+      <div className="relative w-full max-w-[280px] md:max-w-[320px] lg:max-w-[360px] aspect-[3/4] overflow-hidden">
+        <Image
+          src={mainImage}
+          alt="Pareja"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+
       <div className="text-center">
         <p 
-          className="text-[2rem] tracking-wider mb-6"
+          className="text-sm md:text-base tracking-wider mb-6"
           style={{ 
             fontFamily: fonts.heading || 'Cormorant',
             color: colors.text || '#2B2B2B'

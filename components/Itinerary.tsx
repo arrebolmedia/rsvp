@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { getIconComponent } from '@/components/admin/IconPicker'
+import { FaChurch, FaGlassCheers, FaUtensils, FaMusic } from 'react-icons/fa'
 
 const defaultEvents = [
   {
@@ -34,6 +34,13 @@ const defaultEvents = [
   },
 ]
 
+const iconMap: any = {
+  FaChurch,
+  FaGlassCheers,
+  FaUtensils,
+  FaMusic
+}
+
 export default function Itinerary({ settings }: { settings?: any }) {
   const events = settings?.events || defaultEvents
 
@@ -49,12 +56,12 @@ export default function Itinerary({ settings }: { settings?: any }) {
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {settings?.title || 'Itinerario'}
           </h2>
-          <div className="w-24 h-0.5 bg-accent-blush mx-auto"></div>
+          <div className="w-24 h-px bg-accent-blush mx-auto"></div>
         </motion.div>
 
         <div className="space-y-8">
           {events.map((event: any, index: number) => {
-            const Icon = getIconComponent(event.icon)
+            const Icon = iconMap[event.icon] || FaGlassCheers
             return (
               <motion.div
                 key={index}
@@ -64,16 +71,16 @@ export default function Itinerary({ settings }: { settings?: any }) {
                 transition={{ delay: index * 0.2 }}
                 className="border border-subtle p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 hover:border-accent-blush/60 transition-all duration-300"
               >
-                <div className="flex-shrink-0 flex items-center justify-center text-accent-terracotta w-16">
-                  <Icon className="text-5xl" />
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 border-2 border-accent-terracotta rounded-full flex items-center justify-center text-accent-terracotta">
+                    <Icon className="text-3xl" />
+                  </div>
                 </div>
                 
                 <div className="flex-grow text-center md:text-left">
-                  {event.day && (
-                    <p className="text-sm tracking-[0.2em] uppercase text-foreground/50 mb-1">
-                      {event.day}
-                    </p>
-                  )}
+                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mb-3">
+                    {event.time}
+                  </div>
                   <h3 className="font-elegant text-2xl text-foreground mb-2">
                     {event.title}
                   </h3>
@@ -83,26 +90,6 @@ export default function Itinerary({ settings }: { settings?: any }) {
                   <p className="text-muted-foreground text-sm">
                     {event.description}
                   </p>
-                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mt-4 whitespace-pre-line leading-8">
-                    {event.time}
-                  </div>
-                  {event.dressCode && (
-                    <p className="text-foreground/70 text-sm mt-3">
-                      <span className="uppercase tracking-[0.15em]">Código de vestimenta:</span>{' '}
-                      {event.dressCodeLink ? (
-                        <a href={event.dressCodeLink} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70 transition-opacity">
-                          {event.dressCode}
-                        </a>
-                      ) : (
-                        event.dressCode
-                      )}
-                    </p>
-                  )}
-                  {event.dressCodeNote && (
-                    <p className="text-foreground/50 text-xs mt-2 italic">
-                      {event.dressCodeNote}
-                    </p>
-                  )}
                 </div>
               </motion.div>
             )

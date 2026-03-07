@@ -50,28 +50,6 @@ const defaultHotels = [
 export default function Accommodation({ settings }: { settings?: any }) {
   const hotels = settings?.hotels || defaultHotels
 
-  const getHotelLink = (hotel: any) => hotel?.url || hotel?.link || ''
-
-  const getPhoneHref = (phone: string) => {
-    if (!phone) return ''
-    if (phone.startsWith('http://') || phone.startsWith('https://') || phone.startsWith('wa.me/')) {
-      return phone.startsWith('wa.me/') ? `https://${phone}` : phone
-    }
-
-    const digits = phone.replace(/\D/g, '')
-    if (!digits) return ''
-    return `tel:+${digits}`
-  }
-
-  const getWhatsappHref = (hotel: any) => {
-    const whatsapp = hotel?.whatsapp || hotel?.wa || ''
-    if (whatsapp.startsWith('http://') || whatsapp.startsWith('https://') || whatsapp.startsWith('wa.me/')) {
-      return whatsapp.startsWith('wa.me/') ? `https://${whatsapp}` : whatsapp
-    }
-    const digits = (whatsapp || hotel?.phone || '').replace(/\D/g, '')
-    return digits ? `https://wa.me/${digits}` : ''
-  }
-
   return (
     <section className="py-24 px-4" style={{ backgroundColor: 'var(--background)' }}>
       <div className="max-w-6xl mx-auto">
@@ -84,7 +62,7 @@ export default function Accommodation({ settings }: { settings?: any }) {
           <h2 className="font-elegant text-5xl md:text-6xl text-foreground mb-6">
             {settings?.title || 'Hospedaje'}
           </h2>
-          <div className="w-24 h-0.5 bg-accent-blush mx-auto mb-8"></div>
+          <div className="w-24 h-px bg-accent-blush mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto font-light text-base md:text-lg leading-relaxed">
             {settings?.description || 'Para nosotros es muy importante tu seguridad, estos son los lugares que recomendamos para tu instalación.'}
           </p>
@@ -105,33 +83,25 @@ export default function Accommodation({ settings }: { settings?: any }) {
               </h3>
               
               <div className="space-y-2 mb-6 text-foreground/70 text-sm md:text-base">
-                {hotel.code && (
-                  <p className="font-medium text-accent-blush">
-                    Código de evento: {hotel.code}
-                  </p>
-                )}
-                {hotel.description && (
-                  <p className="text-foreground/60 text-sm">
-                    {hotel.description}
-                  </p>
-                )}
-                {hotel.address && (
-                  <p className="max-w-sm mx-auto">
-                    {hotel.address}
-                  </p>
-                )}
+                <p className="font-medium text-accent-blush">
+                  Código de evento: {hotel.code}
+                </p>
+                <p className="max-w-sm mx-auto">
+                  {hotel.address}
+                </p>
+                <p>
+                  Tel: {hotel.phone}
+                </p>
               </div>
 
-              {getHotelLink(hotel) && getHotelLink(hotel) !== '#' && (
-                <a
-                  href={getHotelLink(hotel)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-8 py-3 bg-accent-wine text-white text-xs tracking-[0.2em] uppercase hover:bg-primary-900 transition-colors duration-300"
-                >
-                  Más Información
-                </a>
-              )}
+              <a
+                href={hotel.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3 bg-accent-wine text-white text-xs tracking-[0.2em] uppercase hover:bg-primary-900 transition-colors duration-300"
+              >
+                Más Información
+              </a>
             </motion.div>
           ))}
         </div>

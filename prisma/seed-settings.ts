@@ -35,13 +35,13 @@ async function main() {
     create: {
       section: 'hero',
       content: {
-        brideName: 'Fernanda',
-        groomName: 'Fernanda',
+        brideName: 'Ana',
+        groomName: 'Carlos',
         slides: [
-          { id: 1, image: '/images/hero/5.jpg', alt: 'Pareja de novias' },
+          { id: 1, image: '/images/hero/5.jpg', alt: 'Pareja de novios' },
           { id: 2, image: '/images/hero/10.jpg', alt: 'Momento romántico' },
           { id: 3, image: '/images/hero/24.jpg', alt: 'Celebración' },
-          { id: 4, image: '/images/hero/28.jpg', alt: 'Juntas' },
+          { id: 4, image: '/images/hero/28.jpg', alt: 'Juntos' },
         ],
         weddingDate: '2026-06-15T17:00:00-06:00', // Horario de México (CST)
       },
@@ -184,9 +184,10 @@ async function main() {
       section: 'rsvp',
       content: {
         title: '¿Nos Acompañas?',
-        description: 'Por favor, confírmanos tu asistencia',
+        description: 'Por favor, confírmanos tu asistencia antes del 1 de junio de 2025',
         buttonText: 'Confirmar Asistencia',
-        showDeadline: false,
+        showDeadline: true,
+        deadline: '2025-06-01',
       },
     },
   })
