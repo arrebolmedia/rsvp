@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-// GET - Buscar invitados por nombre
+// GET - Buscar invitados por nombre (tolerante a acentos y errores de escritura)
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
@@ -15,19 +15,20 @@ export async function GET(request: Request) {
       )
     }
 
+    // Búsqueda tolerante a acentos (unaccent) y errores de escritura (pg_trgm similarity)
     const conditions: string[] = []
     const values: string[] = []
     let idx = 1
 
     if (firstName) {
-      conditions.push(`unaccent(lower(g."firstName")) LIKE unaccent(lower($${idx}))`)
-      values.push(`%${firstName}%`)
-      idx++
+      conditions.push(`(unaccent(lower(g."firstName")) LIKE unaccent(lower($${idx})) OR similarity(unaccent(lower(g."firstName")), unaccent(lower($${idx + 1}))) > 0.3)`)
+      values.push(`%${firstName}%`, firstName)
+      idx += 2
     }
     if (lastName) {
-      conditions.push(`unaccent(lower(g."lastName")) LIKE unaccent(lower($${idx}))`)
-      values.push(`%${lastName}%`)
-      idx++
+      conditions.push(`(unaccent(lower(g."lastName")) LIKE unaccent(lower($${idx})) OR similarity(unaccent(lower(g."lastName")), unaccent(lower($${idx + 1}))) > 0.3)`)
+      values.push(`%${lastName}%`, lastName)
+      idx += 2
     }
 
     const where = conditions.join(' AND ')
