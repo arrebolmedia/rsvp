@@ -75,8 +75,12 @@ export default function Itinerary({ settings }: { settings?: any }) {
                 transition={{ delay: index * 0.2 }}
                 className="border border-subtle p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 hover:border-accent-blush/60 transition-all duration-300"
               >
-                <div className="flex-shrink-0 text-accent-terracotta">
-                  <Icon className="text-4xl" />
+                <div className="flex-shrink-0">
+                  {event.image ? (
+                    <img src={event.image} alt={event.title} className="w-28 h-auto rounded-sm" />
+                  ) : (
+                    <Icon className="text-4xl text-accent-terracotta" />
+                  )}
                 </div>
                 
                 <div className="flex-grow text-center md:text-left">

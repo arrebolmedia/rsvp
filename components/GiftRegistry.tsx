@@ -34,8 +34,12 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
             viewport={{ once: true }}
             className="border border-subtle p-8"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <FaUniversity className="text-3xl text-accent-terracotta flex-shrink-0" />
+            <div className="mb-6">
+              {settings?.image ? (
+                <img src={settings.image} alt="Mesa de regalos" className="w-32 h-auto rounded-sm mb-4" />
+              ) : (
+                <FaUniversity className="text-3xl text-accent-terracotta mb-4" />
+              )}
               <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Transferencia bancaria</p>
             </div>
             <div className="divide-y divide-subtle">
