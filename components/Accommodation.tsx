@@ -93,9 +93,16 @@ export default function Accommodation({ settings }: { settings?: any }) {
                     {hotel.description || hotel.address}
                   </p>
                 )}
+                {hotel.note && (
+                  <p className="text-xs tracking-[0.15em] uppercase text-accent-terracotta font-medium">
+                    {hotel.note}
+                  </p>
+                )}
                 {hotel.phone && (
                   <p>
-                    Tel: {hotel.phone}
+                    <a href={`tel:${hotel.phone.replace(/\s/g, '')}`} className="hover:text-accent-terracotta transition-colors">
+                      Tel: {hotel.phone}
+                    </a>
                   </p>
                 )}
               </div>
