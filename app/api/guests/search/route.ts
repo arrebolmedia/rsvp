@@ -15,27 +15,30 @@ export async function GET(request: Request) {
       )
     }
 
-    const guests = await prisma.guest.findMany({
-      where: {
-        AND: [
-          firstName ? {
-            firstName: {
-              contains: firstName,
-              mode: 'insensitive',
-            },
-          } : {},
-          lastName ? {
-            lastName: {
-              contains: lastName,
-              mode: 'insensitive',
-            },
-          } : {},
-        ],
-      },
-      include: {
-        rsvp: true,
-      },
-    })
+    const conditions: string[] = []
+    const values: string[] = []
+    let idx = 1
+
+    if (firstName) {
+      conditions.push(`unaccent(lower(g."firstName")) LIKE unaccent(lower($${idx}))`)
+      values.push(`%${firstName}%`)
+      idx++
+    }
+    if (lastName) {
+      conditions.push(`unaccent(lower(g."lastName")) LIKE unaccent(lower($${idx}))`)
+      values.push(`%${lastName}%`)
+      idx++
+    }
+
+    const where = conditions.join(' AND ')
+    const guests = await prisma.$queryRawUnsafe<any[]>(
+      `SELECT g.*, row_to_json(r.*) as rsvp
+       FROM "Guest" g
+       LEFT JOIN "RSVP" r ON r."guestId" = g.id
+       WHERE ${where}
+       ORDER BY g."firstName", g."lastName"`,
+      ...values
+    )
 
     return NextResponse.json(guests)
   } catch (error) {

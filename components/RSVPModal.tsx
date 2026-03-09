@@ -233,7 +233,7 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
                     {searchResults.length > 0 && (
                       <div className="space-y-3">
                         <h3 className="font-elegant text-xl text-foreground mb-4">
-                          Resultados ({searchResults.length}):
+                          Confirma aquí:
                         </h3>
                         {searchResults.map((guest) => (
                           <button

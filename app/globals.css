@@ -1,14 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600&family=Bodoni+Moda:wght@400;500;600;700&family=Cormorant:wght@100;200;300;400;500;600;700&family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700&family=Lora:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@100;200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600&family=Bodoni+Moda:wght@400;500;600;700&family=Cormorant:wght@100;200;300;400;500;600;700&family=Cinzel:wght@400;500;600;700;800;900&family=Montserrat:wght@100;200;300;400;500;600;700&family=Lora:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Roboto:wght@300;400;500;700&display=swap');
 
 :root {
   --background: #FAF8F5;
   --background-alt: #F8F6F2;
   --foreground: #2B2B2B;
-  --accent-terracotta: #C67B5C;
+  --accent-terracotta: #4A6741;
   --accent-blush: #E8C4B8;
   --accent-wine: #8B5A6F;
   --border-subtle: #E8E3DD;
