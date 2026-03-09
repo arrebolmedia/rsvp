@@ -88,15 +88,15 @@ export default function Itinerary({ settings }: { settings?: any }) {
                   <h3 className="font-elegant text-2xl text-foreground mb-2">
                     {event.title}
                   </h3>
-                  <div className="text-accent-terracotta text-sm tracking-[0.2em] uppercase mb-3 whitespace-pre-line">
-                    {event.time}
-                  </div>
                   <p className="text-foreground/70 mb-1">
                     {event.location}
                   </p>
                   <p className="text-muted-foreground text-sm mb-3">
                     {event.description}
                   </p>
+                  <div className="text-accent-terracotta text-sm tracking-[0.2em] uppercase mb-3 whitespace-pre-line">
+                    {event.time}
+                  </div>
                   {event.dressCode && (
                     <p className="text-sm text-foreground/70">
                       <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Dress code: </span>
