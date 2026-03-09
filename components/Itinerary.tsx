@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FaChurch, FaGlassCheers, FaUtensils, FaMusic } from 'react-icons/fa'
+import { FaChurch, FaGlassCheers, FaUtensils, FaMusic, FaSun, FaHeart, FaStar, FaCamera } from 'react-icons/fa'
 
 const defaultEvents = [
   {
@@ -38,7 +38,11 @@ const iconMap: any = {
   FaChurch,
   FaGlassCheers,
   FaUtensils,
-  FaMusic
+  FaMusic,
+  FaSun,
+  FaHeart,
+  FaStar,
+  FaCamera,
 }
 
 export default function Itinerary({ settings }: { settings?: any }) {
@@ -71,25 +75,49 @@ export default function Itinerary({ settings }: { settings?: any }) {
                 transition={{ delay: index * 0.2 }}
                 className="border border-subtle p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 hover:border-accent-blush/60 transition-all duration-300"
               >
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 border-2 border-accent-terracotta rounded-full flex items-center justify-center text-accent-terracotta">
-                    <Icon className="text-3xl" />
-                  </div>
+                <div className="flex-shrink-0 text-accent-terracotta">
+                  <Icon className="text-4xl" />
                 </div>
                 
                 <div className="flex-grow text-center md:text-left">
-                  <div className="text-accent-terracotta text-sm tracking-[0.3em] uppercase mb-3">
-                    {event.time}
-                  </div>
+                  {event.day && (
+                    <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">
+                      {event.day}
+                    </p>
+                  )}
                   <h3 className="font-elegant text-2xl text-foreground mb-2">
                     {event.title}
                   </h3>
+                  <div className="text-accent-terracotta text-sm tracking-[0.2em] uppercase mb-3 whitespace-pre-line">
+                    {event.time}
+                  </div>
                   <p className="text-foreground/70 mb-1">
                     {event.location}
                   </p>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-muted-foreground text-sm mb-3">
                     {event.description}
                   </p>
+                  {event.dressCode && (
+                    <p className="text-sm text-foreground/70">
+                      <span className="text-xs tracking-[0.15em] uppercase text-muted-foreground">Dress code: </span>
+                      {event.dressCode}
+                    </p>
+                  )}
+                  {event.dressCodeNote && (
+                    <p className="text-xs italic text-foreground/60 mt-1">
+                      {event.dressCodeNote}
+                    </p>
+                  )}
+                  {event.dressCodeLink && (
+                    <a
+                      href={event.dressCodeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs tracking-[0.15em] uppercase text-accent-terracotta hover:underline mt-2 inline-block"
+                    >
+                      Ver dress code →
+                    </a>
+                  )}
                 </div>
               </motion.div>
             )

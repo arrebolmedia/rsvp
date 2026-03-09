@@ -1,37 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FaGift, FaStore, FaEnvelope } from 'react-icons/fa'
-
-const defaultRegistries = [
-  {
-    icon: 'FaStore',
-    name: 'Liverpool',
-    description: 'Mesa de regalos',
-    link: 'https://mesaderegalos.liverpool.com.mx',
-    eventNumber: '12345678',
-  },
-  {
-    icon: 'FaStore',
-    name: 'Amazon',
-    description: 'Lista de deseos',
-    link: 'https://www.amazon.com.mx/wedding',
-    eventNumber: 'ABCD1234',
-  },
-]
-
-const iconMap: any = {
-  FaStore,
-  FaGift,
-  FaEnvelope
-}
+import { FaUniversity } from 'react-icons/fa'
 
 export default function GiftRegistry({ settings }: { settings?: any }) {
-  const registries = settings?.registries || defaultRegistries
+  const accounts: { bank: string; accountHolder: string; accountNumber: string }[] = settings?.accounts || []
+  const hasAccounts = accounts.length > 0
+
+  if (!hasAccounts && !settings?.registries?.length) return null
 
   return (
     <section className="py-24 px-4" style={{ backgroundColor: 'var(--background-alt)' }}>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -43,51 +23,36 @@ export default function GiftRegistry({ settings }: { settings?: any }) {
           </h2>
           <div className="w-24 h-px bg-accent-blush mx-auto mb-8"></div>
           <p className="text-foreground/80 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
-            {settings?.description || 'Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo, hemos preparado estas opciones:'}
+            {settings?.description}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {registries.map((registry: any, index: number) => {
-            const Icon = iconMap[registry.icon] || FaStore
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="border-2 border-subtle p-8 text-center hover:border-accent-terracotta/60 transition-all duration-300"
-              >
-                <Icon className="text-5xl text-accent-terracotta mx-auto mb-6" />
-                <h3 className="font-elegant text-2xl text-foreground mb-3" style={{ fontWeight: 300 }}>
-                  {registry.name}
-                </h3>
-                <p className="text-muted-foreground mb-6">{registry.description}</p>
-                
-                {registry.eventNumber && (
-                  <div className="mb-6">
-                    <p className="text-xs text-muted-foreground mb-2 tracking-[0.2em] uppercase">Número de evento:</p>
-                    <p className="font-mono text-base text-foreground font-light">
-                      {registry.eventNumber}
-                    </p>
-                  </div>
-                )}
-                
-                {registry.link && (
-                  <a
-                    href={registry.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block border-2 border-accent-terracotta text-accent-terracotta px-6 py-3 text-sm tracking-[0.2em] uppercase hover:bg-accent-terracotta hover:text-white transition-all duration-300"
-                  >
-                    Ver Mesa
-                  </a>
-                )}
-              </motion.div>
-            )
-          })}
-        </div>
+        {hasAccounts && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="border border-subtle p-8"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <FaUniversity className="text-3xl text-accent-terracotta flex-shrink-0" />
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground">Transferencia bancaria</p>
+            </div>
+            <div className="divide-y divide-subtle">
+              {accounts.map((account, index) => (
+                <div key={index} className="py-5 first:pt-0 last:pb-0">
+                  <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-1">{account.bank}</p>
+                  <p className="font-elegant text-xl text-foreground mb-1" style={{ fontWeight: 300 }}>
+                    {account.accountHolder}
+                  </p>
+                  <p className="font-mono text-base text-foreground/70 tracking-wider">
+                    {account.accountNumber}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   )

@@ -83,25 +83,33 @@ export default function Accommodation({ settings }: { settings?: any }) {
               </h3>
               
               <div className="space-y-2 mb-6 text-foreground/70 text-sm md:text-base">
-                <p className="font-medium text-accent-blush">
-                  Código de evento: {hotel.code}
-                </p>
-                <p className="max-w-sm mx-auto">
-                  {hotel.address}
-                </p>
-                <p>
-                  Tel: {hotel.phone}
-                </p>
+                {hotel.code && (
+                  <p className="font-medium text-accent-blush">
+                    Código de evento: {hotel.code}
+                  </p>
+                )}
+                {(hotel.description || hotel.address) && (
+                  <p className="max-w-sm mx-auto">
+                    {hotel.description || hotel.address}
+                  </p>
+                )}
+                {hotel.phone && (
+                  <p>
+                    Tel: {hotel.phone}
+                  </p>
+                )}
               </div>
 
-              <a
-                href={hotel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 py-3 bg-accent-wine text-white text-xs tracking-[0.2em] uppercase hover:bg-primary-900 transition-colors duration-300"
-              >
-                Más Información
-              </a>
+              {(hotel.link || hotel.url) && (hotel.link || hotel.url) !== '#' && (
+                <a
+                  href={hotel.link || hotel.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-8 py-3 bg-accent-wine text-white text-xs tracking-[0.2em] uppercase hover:bg-primary-900 transition-colors duration-300"
+                >
+                  Más Información
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
