@@ -127,6 +127,15 @@ export default function Itinerary({ settings }: { settings?: any }) {
             )
           })}
         </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center text-xs tracking-[0.2em] uppercase text-muted-foreground mt-12 font-bold"
+        >
+          Evento exclusivo para adultos (no niños)
+        </motion.p>
       </div>
     </section>
   )
