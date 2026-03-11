@@ -36,3 +36,11 @@ next-env.d.ts
 # prisma
 *.db
 *.db-journal
+
+# claude code
+.claude/
+
+# data files
+*.csv
+*.png
+!public/**/*.png
