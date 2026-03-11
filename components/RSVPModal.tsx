@@ -334,7 +334,7 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
 
                       <div>
                         <label className="block text-sm tracking-[0.2em] uppercase text-muted-foreground mb-3 font-light">
-                          Restricciones alimenticias o alguna información que debamos saber (opcional)
+                          Mensaje (opcional)
                         </label>
                         <textarea
                           value={message}
