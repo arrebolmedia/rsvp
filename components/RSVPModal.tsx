@@ -334,14 +334,14 @@ export default function RSVPModal({ isOpen, onClose }: RSVPModalProps) {
 
                       <div>
                         <label className="block text-sm tracking-[0.2em] uppercase text-muted-foreground mb-3 font-light">
-                          Mensaje (opcional)
+                          Restricciones alimenticias o alguna información que debamos saber (opcional)
                         </label>
                         <textarea
                           value={message}
                           onChange={(e) => setMessage(e.target.value)}
                           rows={4}
                           className="w-full px-4 py-3 border border-subtle focus:ring-1 focus:ring-accent-wine focus:border-accent-wine font-light transition-all resize-none"
-                          placeholder="Deja un mensaje para los novios..."
+                          placeholder="Restricciones alimenticias o alguna información que debamos saber..."
                         />
                       </div>
 
